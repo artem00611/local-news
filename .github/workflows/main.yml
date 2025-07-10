@@ -27,6 +27,7 @@ jobs:
       DB_URL: jdbc:postgresql://localhost:5432/local_news
       DB_USERNAME: postgres
       DB_PASSWORD: postgres
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
     steps:
       - uses: actions/checkout@v4
@@ -54,3 +55,4 @@ jobs:
           version_label: ${{ github.sha }}
           region: eu-central-1
           deployment_package: deploy.zip
+
