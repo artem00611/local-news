@@ -24,6 +24,8 @@ public class CityService {
         return cityRepo.findByNameContainingIgnoreCase(query, pageable).map(cityDtoMapper::toCityDto);
     }
 
-
+    public Page<CityDto> searchCitiesByNewsCount(Pageable pageable){
+        return cityRepo.findAllByOrderByNewsCountDesc(pageable).map(cityDtoMapper::toCityDto);
+    }
 
 }

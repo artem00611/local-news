@@ -9,9 +9,11 @@ import java.util.List;
 
 @Entity
 @Table(name = "cities")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = "newsList")
 public class City {
 
     @Id

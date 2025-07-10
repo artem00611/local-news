@@ -6,6 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface NewsRepo extends JpaRepository<News, Long> {
     Page<News> findByMatchedCityIgnoreCase(City matchedCity, Pageable pageable);
+
+    Page<News> findByMatchedCity(City matchedCity, Pageable pageable);
 }

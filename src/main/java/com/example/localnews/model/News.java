@@ -18,6 +18,7 @@ public class News {
 
     private String title;
 
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     private Boolean local;

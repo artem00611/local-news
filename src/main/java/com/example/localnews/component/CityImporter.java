@@ -38,8 +38,8 @@ public class CityImporter implements CommandLineRunner {
         if (inputStream != null) {
             reader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
-            while (reader.readLine() != null) {
-                line = reader.readLine();
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
                 List<String> parts = Arrays.stream(line.split(",")).map(x -> x.replace("\"", "")).toList();
                 City city = new City();
                 city.setName(parts.get(0));

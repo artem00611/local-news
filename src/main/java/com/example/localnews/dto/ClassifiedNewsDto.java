@@ -5,5 +5,6 @@ import lombok.Data;
 @Data
 public class ClassifiedNewsDto {
     private Boolean local;
-    private String city;
+    private String cityName;
+    private String stateCode;
 }
