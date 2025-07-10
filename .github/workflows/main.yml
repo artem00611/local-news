@@ -42,8 +42,7 @@ jobs:
 
       - name: Generate deployment package
         run: |
-          cp target/*.jar application.jar
-          zip -r deploy.zip application.jar Procfile
+          zip -r deploy.zip . -x '*.git*' -x 'target/*'
 
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
@@ -55,4 +54,3 @@ jobs:
           version_label: ${{ github.sha }}
           region: eu-central-1
           deployment_package: deploy.zip
-
