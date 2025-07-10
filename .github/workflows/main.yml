@@ -28,10 +28,6 @@ jobs:
       DB_USERNAME: postgres
       DB_PASSWORD: postgres
 
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
     steps:
       - uses: actions/checkout@v4
 
@@ -40,10 +36,10 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Build with Maven
+      - name: Build & test with Maven
         run: mvn -B verify
 
-      - name: Generate deployment package
+      - name: Package artefact for EB
         run: |
           cp target/*.jar application.jar
           zip -r deploy.zip application.jar Procfile
@@ -55,6 +51,11 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: local-news-prod
           environment_name: my-env
-          version_label: ${{ github.sha }}
           region: eu-central-1
+          version_label: ${{ github.sha }}
           deployment_package: deploy.zip
+
+          env_vars: |
+            DB_URL=${{ secrets.PROD_DB_URL }}
+            DB_USERNAME=${{ secrets.PROD_DB_USERNAME }}
+            DB_PASSWORD=${{ secrets.PROD_DB_PASSWORD }}
