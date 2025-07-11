@@ -52,8 +52,8 @@ jobs:
       - name: Create deploy.zip (flat)
         run: |
           zip -j deploy.zip build/application.jar
-          # Include EB config if present
           if [ -d ".ebextensions" ]; then zip -r deploy.zip .ebextensions/*; fi
+          if [ -d ".platform" ]; then zip -r deploy.zip .platform/*; fi
 
       # ---------- DEPLOY ----------
       - name: Deploy to Elastic Beanstalk
