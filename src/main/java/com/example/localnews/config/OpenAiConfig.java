@@ -13,7 +13,7 @@ public class OpenAiConfig {
     private String apiKey;
 
     @Bean
-    public WebClient webClient(){
+    public WebClient webClient() {
         return WebClient.builder()
                 .baseUrl("https://api.openai.com/v1")
                 .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + apiKey)

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class NewsDtoMapper {
-    public NewsDto toNewsDto(News news){
+    public NewsDto toNewsDto(News news) {
         return NewsDto.builder()
                 .title(news.getTitle())
                 .content(news.getContent())
