@@ -11,7 +11,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:16
+        image: postgres:17
         env:
           POSTGRES_DB: local_news
           POSTGRES_USER: postgres
@@ -49,8 +49,8 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: local-news-prod
-          environment_name: my-env
+          application_name: application-backend
+          environment_name: Application-backend-env
           version_label: ${{ github.sha }}
           region: eu-central-1
           deployment_package: deploy.zip
