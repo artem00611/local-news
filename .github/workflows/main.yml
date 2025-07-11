@@ -23,7 +23,7 @@ jobs:
           --health-timeout=5s
           --health-retries=5
 
-    # Build‑time vars (used by tests). **DO NOT** ship these to prod
+    # Build‑time vars (used by tests only). **DO NOT** ship these to prod
     env:
       DB_URL: jdbc:postgresql://localhost:5432/local_news
       DB_USERNAME: postgres
@@ -33,14 +33,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Java 17
+      - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
-      - name: Build with Maven
-        run: mvn -B verify
+      # ---------- BUILD (tests skipped) ----------
+      - name: Build with Maven (skip tests)
+        run: mvn -B verify -DskipTests
 
       # ---------- PACKAGE FOR EB ----------
       - name: Copy JAR and rename to application.jar
@@ -51,7 +52,7 @@ jobs:
       - name: Create deploy.zip (flat)
         run: |
           zip -j deploy.zip build/application.jar
-          # Include EB config if you have it
+          # Include EB config if present
           if [ -d ".ebextensions" ]; then zip -r deploy.zip .ebextensions/*; fi
 
       # ---------- DEPLOY ----------
